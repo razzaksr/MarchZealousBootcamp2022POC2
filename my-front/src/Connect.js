@@ -2,6 +2,11 @@ import axios from 'axios'
 
 const url="http://localhost:8080"
 
+export const newTrans=async(object)=>{
+    const t = await axios.post(`${url}/create`,object)
+    return t;
+}
+
 export const deleting=async(object)=>{
     //alert("Axios found"+JSON.stringify(object))
     const t = await axios.delete(`${url}/del/${object.accountNumber}`)

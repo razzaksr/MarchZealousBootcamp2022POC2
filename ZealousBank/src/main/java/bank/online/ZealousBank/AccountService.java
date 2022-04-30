@@ -1,5 +1,7 @@
 package bank.online.ZealousBank;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -8,6 +10,11 @@ public class AccountService
 {
 	@Autowired
 	AccountRepository repo;
+	
+	public Account gettingByNumberExact(long number)
+	{
+		return repo.findById(number).orElse(new Account());
+	}
 	
 	public String erasing(long num)
 	{

@@ -66,7 +66,7 @@ export const Home=()=>{
                                 </Typography>
                             </CardContent>
                             <CardActions>
-                                <Button color="inherit" size="medium">DO</Button>
+                                <a className="btn btn-outline-light" href='/perform'>DO</a>
                             </CardActions>
                         </Card>
                         <Card className="col-lg-5 col-md-12 me-1 mb-1 shadow p-3 bg-dark text-light">

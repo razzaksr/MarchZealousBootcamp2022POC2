@@ -11,6 +11,11 @@ public class TransactionService
 	@Autowired
 	TransactionRepository repo;
 	
+	public Transaction newOne(Transaction transaction)
+	{
+		return repo.save(transaction);
+	}
+	
 	public List<Transaction> getByAccount(Account account)
 	{
 		return repo.findAllByAccount(account);

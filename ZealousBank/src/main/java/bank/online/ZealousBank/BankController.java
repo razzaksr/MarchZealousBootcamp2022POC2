@@ -1,6 +1,7 @@
 package bank.online.ZealousBank;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -21,6 +22,17 @@ public class BankController
 	AccountService aserv;
 	@Autowired
 	TransactionService tserv;
+	
+	@PostMapping("/create")
+	public Transaction callNewOne(@RequestBody Transaction transaction)
+	{
+		tserv.newOne(transaction);
+		Account tmp = aserv.gettingByNumberExact(transaction.getAccount().getAccountNumber());
+		tmp.getMytrans().add(transaction);
+		tmp.setAccountBalance(transaction.getAccount().getAccountBalance());
+		aserv.savingAccount(tmp);
+		return transaction;
+	}
 	
 	@DeleteMapping("/del/{key}")
 	public String callErase(@PathVariable("key") long key)

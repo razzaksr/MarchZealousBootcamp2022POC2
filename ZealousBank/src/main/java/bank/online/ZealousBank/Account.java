@@ -3,8 +3,10 @@ package bank.online.ZealousBank;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,9 +28,9 @@ public class Account
 	private String email;
 	@Column(unique = true)
 	private long customerId;
-	@Nullable
-	@OneToMany
+	@OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 	@JoinTable(name = "EveryRecord",joinColumns = @JoinColumn(name="AccountNo"),inverseJoinColumns = @JoinColumn(name="TransactionId"))
+	@Nullable
 	private Collection<Transaction> mytrans=new ArrayList<Transaction>();
 	public Account() {
 		super();
