@@ -1,14 +1,23 @@
 import { Button, Card, CardActions, CardContent, Typography } from "@mui/material"
 import { useEffect, useState } from "react"
-import { deleting } from "./Connect"
+import { deleting, gets } from "./Connect"
 
 export const Home=()=>{
 
-    const[account,setAccount]=useState({})
+    const[account,setAccount]=useState(
+        {"accountNumber":0,
+        "accountHolder":"",
+        "accountBalance":0.0,
+        "contact":0,
+        "password":"",
+        "email":"",
+        "customerId":0,}
+    )
 
-    const hai=()=>{
-        const t = JSON.parse(localStorage.getItem("loggedperson"))
-        setAccount(t)
+    const hai=async()=>{
+        const t = Number(localStorage.getItem("loggedperson"))
+        const yet=await gets(t)
+        setAccount(yet.data)
     }
 
     useEffect(()=>{

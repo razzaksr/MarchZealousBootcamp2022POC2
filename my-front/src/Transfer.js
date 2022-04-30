@@ -1,10 +1,8 @@
-import { Button, TextField } from "@mui/material"
-import { useEffect, useState } from "react"
-import { adding, gets, newTrans } from "./Connect"
-import PaidIcon from '@mui/icons-material/Paid';
-
-export const Credit=()=>{
-
+import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
+import { Button, TextField } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { gets, newTrans } from './Connect';
+export const Transfer=()=>{
     const[account,setAccount]=useState({
         "accountNumber":0,
         "accountHolder":"",
@@ -29,7 +27,7 @@ export const Credit=()=>{
         "dot":new Date().toISOString(),
         "amount":0,
         "account":{},
-        "type":"credit"
+        "type":"fund transfer"
     })
 
     const fun1=(eve)=>{
@@ -43,16 +41,22 @@ export const Credit=()=>{
     }
 
     const add=async()=>{
-        account.accountBalance=Number(account.accountBalance)+Number(transaction.amount)
-        transaction.account=account
-        alert(JSON.stringify(transaction))
-        const t = await newTrans(transaction)
-        alert(JSON.stringify(t.data))
+        if(Number(account.accountBalance)>=Number(transaction.amount))
+        {
+            account.accountBalance=Number(account.accountBalance)-Number(transaction.amount)
+            transaction.account=account
+            alert(JSON.stringify(transaction))
+            const t = await newTrans(transaction)
+            alert(JSON.stringify(t.data))
+        }
+        else{
+            alert("Childra Ila")
+        }
     }
 
     return(
         <>
-            <h1 className="text-success text-center">Credit amount to your account {account.accountNumber}</h1>
+            <h1 className="text-success text-center">Fund transfer from your account {account.accountNumber}</h1>
             <div className="row justify-content-center">
                 <div className="col-lg-6 col-md-8 col-sm-12 shadow p-4">
                     <div className="form-group">
@@ -79,7 +83,7 @@ export const Credit=()=>{
                     </div>
                     <div className="row justify-content-center">
                         <Button color="primary" className="col-1" onClick={add}>
-                            <PaidIcon/>
+                            <CurrencyExchangeIcon/>
                         </Button>
                     </div>
                 </div>

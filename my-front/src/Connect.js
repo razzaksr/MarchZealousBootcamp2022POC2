@@ -2,6 +2,16 @@ import axios from 'axios'
 
 const url="http://localhost:8080"
 
+export const display=async(num)=>{
+    const t = await axios.get(`${url}/getall/${num}`)
+    return t;
+}
+
+export const gets=async(num)=>{
+    const t = await axios.get(`${url}/get/${num}`)
+    return t;
+}
+
 export const newTrans=async(object)=>{
     const t = await axios.post(`${url}/create`,object)
     return t;

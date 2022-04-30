@@ -1,7 +1,6 @@
 package bank.online.ZealousBank;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -22,6 +21,20 @@ public class BankController
 	AccountService aserv;
 	@Autowired
 	TransactionService tserv;
+	
+	@GetMapping("/getall/{accnum}")
+	public List<Transaction> callAllByAcc(@PathVariable("accnum") long accnum)
+	{
+		Account t=aserv.gettingByNumberExact(accnum);
+		return tserv.getByAccount(t);
+	}
+	
+	@GetMapping("/get/{accnum}")
+	public Account callGetAccount(@PathVariable("accnum") long accnum)
+	{
+		Account t=aserv.gettingByNumberExact(accnum);
+		return t;
+	}
 	
 	@PostMapping("/create")
 	public Transaction callNewOne(@RequestBody Transaction transaction)

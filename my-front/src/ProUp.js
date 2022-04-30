@@ -8,16 +8,17 @@ import Button from '@mui/material/Button';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import CancelPresentationIcon from '@mui/icons-material/CancelPresentation';
 import { useEffect, useState } from 'react';
-import { adding, updating } from './Connect';
+import { adding, gets, updating } from './Connect';
 
 
 
 
 export const ProUp=()=>{
 
-    const loads=()=>{
-        const t = JSON.parse(localStorage.getItem("loggedperson"))
-        setAccount(t)
+    const loads=async()=>{
+        const t = Number(localStorage.getItem("loggedperson"))
+        const yet=await gets(t)
+        setAccount(yet.data)
     }
 
     useEffect(()=>{

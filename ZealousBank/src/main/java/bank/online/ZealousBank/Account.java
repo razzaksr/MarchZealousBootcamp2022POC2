@@ -14,7 +14,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.Cascade;
 import org.springframework.lang.Nullable;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 public class Account 
@@ -28,6 +31,7 @@ public class Account
 	private String email;
 	@Column(unique = true)
 	private long customerId;
+	@JsonBackReference
 	@OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 	@JoinTable(name = "EveryRecord",joinColumns = @JoinColumn(name="AccountNo"),inverseJoinColumns = @JoinColumn(name="TransactionId"))
 	@Nullable

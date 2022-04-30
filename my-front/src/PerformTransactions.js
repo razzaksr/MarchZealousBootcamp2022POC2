@@ -1,13 +1,24 @@
 import { useEffect, useState } from "react"
+import { gets } from "./Connect"
 import { Credit } from "./Credit"
+import { Transfer } from "./Transfer"
 
 export const Perform=()=>{
 
-    const[account,setAccount]=useState({})
+    const[account,setAccount]=useState({
+        "accountNumber":0,
+        "accountHolder":"",
+        "accountBalance":0,
+        "contact":0,
+        "password":"",
+        "email":"",
+        "customerId":0
+    })
 
-    const hey=()=>{
-        const t = JSON.parse(localStorage.getItem("loggedperson"))
-        setAccount(t)
+    const hey=async()=>{
+        const t = Number(localStorage.getItem("loggedperson"))
+        const yet=await gets(t)
+        setAccount(yet.data)
     }
 
     useEffect(()=>{
@@ -31,7 +42,7 @@ export const Perform=()=>{
                         <input type="radio" onChange={earn} name="which" value="credit"/>Credit
                         <input type="radio" onChange={earn} name="which" value="transfer"/>Transfer
                     </div>
-                    {(which=='credit')?<Credit/>:<></>}
+                    {(which==='credit')?<Credit/>:(which==='transfer')?<Transfer/>:<></>}
                 </div>
             </div>
         </div>

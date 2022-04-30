@@ -28,7 +28,7 @@ export const Login=()=>{
         const t = await stepIn(log)
         if(t.data)
         {
-            localStorage.setItem("loggedperson",JSON.stringify(t.data))
+            localStorage.setItem("loggedperson",t.data.accountNumber)
             window.location.assign("/home");
         }
         else{
